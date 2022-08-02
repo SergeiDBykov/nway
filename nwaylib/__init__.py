@@ -23,7 +23,7 @@ def nway_match(match_tables, match_radius, prior_completeness,
 	mag_include_radius=None, mag_exclude_radius=None, magauto_post_single_minvalue=0.9,
 	prob_ratio_secondary = 0.5,
 	min_prob=0., consider_unrelated_associations=True, 
-	store_mag_hists=True,
+	store_mag_hists=False,
 	logger=NormalLogger()):
 	"""
 	match_tables: list of catalogues, each a dict with entries:
@@ -367,7 +367,8 @@ def _apply_magnitude_biasing(match_tables, table, mag_include_radius, mag_exclud
 				bins_lo, bins_hi, hist_sel, hist_all = maghist #numpy.loadtxt(magfile).transpose()
 				bins = numpy.array(list(bins_lo) + [bins_hi[-1]])
 			func = magnitudeweights.fitfunc_histogram(bins, hist_sel, hist_all)
-			if store_mag_hists:
+			#if store_mag_hists:
+			if 1:
 				magnitudeweights.plot_fit(bins, hist_sel, hist_all, func, mag)
 			magcol = magvals[res]
 			magcol[~numpy.logical_and(res_defined, numpy.isfinite(magcol))] = -99

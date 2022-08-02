@@ -42,8 +42,7 @@ Plotting
 """
 def plot_fit(bin_mag, hist_sel, hist_all, func, name):
 	mags = numpy.linspace(bin_mag.min(), bin_mag.max(), 400)
-	plt.figure()
-	plt.subplot(2, 1, 1)
+	plt.figure(figsize=(7,5))
 	hist_n = ratio(hist_sel, hist_all)
 	plt.plot(bin_mag[:-1], hist_all, '-', 
 		drawstyle='steps-post', label='all')
@@ -51,18 +50,20 @@ def plot_fit(bin_mag, hist_sel, hist_all, func, name):
 		drawstyle='steps-post', label='selected')
 	plt.legend(loc='best')
 	plt.ylabel('normalized weight')
-	plt.xlim(mags.min(), mags.max())
-	plt.subplot(2, 1, 2)
-	plt.plot(bin_mag[:-1], hist_n, '-',
-		drawstyle='steps-post', label='ratio')
-	plt.plot(mags, func(mags), '-', label='fit')
-	plt.legend(loc='best')
-	plt.ylabel('normalized weight')
-	plt.xlabel(name)
-	plt.xlim(mags.min(), mags.max())
 	plt.yscale('log')
-	plt.savefig(name.replace(':', '_') + '_fit.pdf', bbox_inches='tight')
-	plt.close()
+	plt.xlim(mags.min(), mags.max())
+	plt.show()
+	# plt.subplot(2, 1, 2)
+	# plt.plot(bin_mag[:-1], hist_n, '-',
+	# 	drawstyle='steps-post', label='ratio')
+	# plt.plot(mags, func(mags), '-', label='fit')
+	# plt.legend(loc='best')
+	# plt.ylabel('normalized weight')
+	# plt.xlabel(name)
+	# plt.xlim(mags.min(), mags.max())
+	# plt.yscale('log')
+	#plt.savefig(name.replace(':', '_') + '_fit.pdf', bbox_inches='tight')
+	#plt.close()
 
 """
 creates the biasing functions
