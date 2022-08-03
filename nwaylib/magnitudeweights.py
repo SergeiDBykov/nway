@@ -42,28 +42,27 @@ Plotting
 """
 def plot_fit(bin_mag, hist_sel, hist_all, func, name):
 	mags = numpy.linspace(bin_mag.min(), bin_mag.max(), 400)
-	plt.figure(figsize=(7,5))
+	fig, [ax1, ax2] =  plt.subplots(nrows=2, ncols = 1, sharex = True, gridspec_kw = {'hspace':0, 'height_ratios': [2,1]}, figsize = (10,10))
 	hist_n = ratio(hist_sel, hist_all)
-	plt.plot(bin_mag[:-1], hist_all, '-', 
+	ax1.plot(bin_mag[:-1], hist_all, '-', 
 		drawstyle='steps-post', label='all')
-	plt.plot(bin_mag[:-1], hist_sel, '-', 
+	ax1.plot(bin_mag[:-1], hist_sel, '-', 
 		drawstyle='steps-post', label='selected')
-	plt.legend(loc='best')
-	plt.ylabel('normalized weight')
-	plt.yscale('log')
-	plt.xlim(mags.min(), mags.max())
+	ax1.legend(loc='best')
+	ax1.set_ylabel('normalized weight')
+	#ax1.set_yscale('log')
+	ax1.set_xlim(mags.min(), mags.max())
 	plt.show()
-	# plt.subplot(2, 1, 2)
-	# plt.plot(bin_mag[:-1], hist_n, '-',
-	# 	drawstyle='steps-post', label='ratio')
-	# plt.plot(mags, func(mags), '-', label='fit')
-	# plt.legend(loc='best')
-	# plt.ylabel('normalized weight')
-	# plt.xlabel(name)
-	# plt.xlim(mags.min(), mags.max())
-	# plt.yscale('log')
-	#plt.savefig(name.replace(':', '_') + '_fit.pdf', bbox_inches='tight')
-	#plt.close()
+
+	ax2.plot(bin_mag[:-1], hist_n, '-',
+		drawstyle='steps-post', label='ratio')
+	ax2.plot(mags, func(mags), '--', label='fit')
+	ax2.legend(loc='best')
+	ax2.set_ylabel('normalized weight')
+	ax2.set_xlabel(name)
+	#ax2.set_xlim(mags.min(), mags.max())
+	#ax2.set_yscale('log')
+
 
 """
 creates the biasing functions
